@@ -1,10 +1,14 @@
 import './App.css';
- import Header from "./NavigationBar/Header.js";
+import Header from "./NavigationBar/Header.js";
+
 
 
 function App() {
   return (
+    <>
      <Header/>
+   
+     </>
   );
 }
 

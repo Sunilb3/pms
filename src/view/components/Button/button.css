@@ -1,0 +1,51 @@
+.button {
+    border: none;
+    padding: .625rem 1.25rem;
+    border-radius: .25rem;
+    font-weight: bold;
+}
+
+.primaryButton {
+    background-color: #0c6;
+    color: #fff;
+    border: none;
+    padding: .625rem 1.25rem;
+    border-radius: .25rem;
+    font-weight: bold;
+    margin: 0 0 0.625rem .625rem
+}
+
+.secondaryButton {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    padding: .625rem 1.25rem;
+    border-radius: .25rem;
+    font-weight: bold;
+    margin: .625rem 0 0 .625rem
+}
+
+.tertiaryButton {
+    background-color: rgb(209, 68, 110);
+    color: #fff;
+    border: none;
+    padding: .625rem 1.25rem;
+    border-radius: .25rem;
+    font-weight: bold;
+    margin: .625rem 0 0 .625rem
+}
+
+.primaryButton:hover {
+    background-color: #276329;
+    color: #fff;
+}
+
+.secondaryButton:hover {
+    background-color: #2b2a2a;
+    color: #fff;
+}
+
+.tertiaryButton:hover {
+    background-color: #f82142;
+    color: #fff
+}
