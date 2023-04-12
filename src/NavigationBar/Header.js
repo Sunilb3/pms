@@ -1,5 +1,6 @@
 import React from 'react'
 import img1 from '../images/hgh.jpg';
+import UserTable from '../view/components/Users/UserTable';
 import './Header.css';
 
 
@@ -30,6 +31,7 @@ export default function Header() {
 </ul>
 </div>
 </header>
+<UserTable/>
 </div>
 
 
