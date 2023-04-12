@@ -1,10 +1,10 @@
 import './App.css';
+ import Header from "./NavigationBar/Header.js";
+
 
 function App() {
   return (
-    <div className="App">
-<h1>PMS APP</h1>
-    </div>
+     <Header/>
   );
 }
 
