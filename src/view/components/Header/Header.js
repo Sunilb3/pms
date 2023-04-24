@@ -1,7 +1,6 @@
 import React from "react";
-import img1 from "../images/hgh.jpg";
-import Button from "../view/components/Button/Button";
-import UserTable from "../view/components/Users/UserTable";
+import logo from "../../../assets/images/logo.jpg";
+import Button from "../Button/Button";
 import "./Header.scss";
 
 export default function Header() {
@@ -11,7 +10,7 @@ export default function Header() {
         <header className="header">
           <div className="logo">
             <a href="home" className="link">
-              <img src={img1} alt="logo_image" />
+              <img src={logo} alt="logo_image" />
             </a>
           </div>
           <nav className="nav">
@@ -35,9 +34,6 @@ export default function Header() {
             </div>
           </nav>
         </header>
-      </div>
-      <div>
-        <UserTable />
       </div>
     </div>
   );
