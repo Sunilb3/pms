@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser, deleteUser,editUser } from "../../../store/userActions";
+import { addUser, deleteUser, editUser } from "../../../store/userActions";
 import Button from "../Button/Button";
-import "../Users/userTable.css";
-
+import Input from "../Input/Input";
+import "../Users/userTable.scss";
 
 const UserTable = () => {
   const users = useSelector((state) => state.users);
@@ -19,9 +19,6 @@ const UserTable = () => {
     setShowForm(true);
   };
 
-  
-    
-
   const handleEdit = (user) => {
     setEditedUser(user);
     setFormData(user);
@@ -34,60 +31,53 @@ const UserTable = () => {
     dispatch(deleteUser(id));
   };
 
-
   const handleSubmit = (event) => {
-        event.preventDefault();
-        if (editId) {
-          dispatch(editUser(editId, formData.name));
-          setEditId(null);
-        } else {
-          const newId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
-          const newUser = { id: newId, name: formData.name };
-          dispatch(addUser(newUser));
-        }
-        setShowForm(false);
-      };
-
+    event.preventDefault();
+    if (editId) {
+      dispatch(editUser(editId, formData.name));
+      setEditId(null);
+    } else {
+      const newId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+      const newUser = { id: newId, name: formData.name };
+      dispatch(addUser(newUser));
+    }
+    setShowForm(false);
+  };
 
   return (
     <div className="UserTable">
       <h1>Patients Details</h1>
+
       <div style={{ "margin-left": "120px" }}>
-        <Button name="Add User" className="primaryButton" onClick={handleAdd} />
+        <Button
+          name="Add User"
+          className="button button--primaryButton"
+          onClick={handleAdd}
+        />
       </div>
+
       {showForm && (
-         <div style={{'margin-left': '120px'}}>
-        <form onSubmit={handleSubmit}>
-          {/* <label>
-            ID:
-            <input
-              type="text"
-              value={formData.id}
-              onChange={(event) =>
-                setFormData({ ...formData,  })
-              }
-              placeholder={formData.id}
-              disabled
+        <div style={{ "margin-left": "120px" }}>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Name:
+              <Input
+                type="text"
+                value={formData.name}
+                onChange={(event) =>
+                  setFormData({ ...formData, name: event.target.value })
+                }
+                required={true}
+                disabled={false}
+                style={{ backgroundColor: "none" }}
+              />
+            </label>
+            <Button
+              name="Add"
+              className="button button--primaryButton"
+              type="submit"
             />
-          </label> */}
-          <label>
-            Name:
-            <input
-              type="text"
-             
-              value={formData.name}
-              onChange={(event) =>
-                setFormData({ ...formData, name: event.target.value })
-              }
-              required="Please enter name...!"
-            />
-          </label>
-          <Button
-            name= "Add"
-            className="primaryButton"
-            type="submit"
-          />
-        </form>
+          </form>
         </div>
       )}
 
@@ -106,19 +96,19 @@ const UserTable = () => {
               <td>
                 {editedUser === user ? (
                   <form onSubmit={handleSubmit}>
-                    <input
+                    <Input
                       type="text"
                       value={formData.name}
                       onChange={(event) =>
                         setFormData({ ...formData, name: event.target.value })
                       }
-                    
-                      required="Please enter name...!"
+                      required={true}
+                      disabled={false}
                       style={{ backgroundColor: "none" }}
                     />
                     <Button
                       name="Update"
-                      className="primaryButton"
+                      className="button button--primaryButton"
                       type="submit"
                     />
                   </form>
@@ -130,21 +120,19 @@ const UserTable = () => {
                 {editedUser === user ? (
                   <Button
                     name="Cancel"
-                    className="secondaryButton"
+                    className="button button--secondaryButton"
                     onClick={() => setEditedUser(null)}
                   />
                 ) : (
                   <>
                     <Button
                       name="Edit"
-                      className="secondaryButton"
+                      className="button button--secondaryButton"
                       onClick={() => handleEdit(user)}
-                      
                     />
-                    
                     <Button
                       name="Delete"
-                      className="tertiaryButton"
+                      className="button button--tertiaryButton"
                       onClick={() => handleDelete(user.id)}
                     />
                   </>
