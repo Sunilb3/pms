@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../../../assets/images/logo.jpg";
 import Button from "../Button/Button";
 import "./Header.scss";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -23,15 +24,17 @@ export default function Header() {
                 className="button button--secondaryButton"
               />
             </div>
-
-            <div className="links">
-              <a href="about" className="link">
-                About
-              </a>
-              <a href="contact" className="link">
-                Contact
-              </a>
-            </div>
+            <ul className="nav-links">
+              <li className="active">
+                <a href="#">Home</a>
+              </li>
+              <li className="active">
+                <a href="#">About</a>
+              </li>
+              <li className="active">
+                <Link to="/login">Logout</Link>
+              </li>
+            </ul>
           </nav>
         </header>
       </div>
