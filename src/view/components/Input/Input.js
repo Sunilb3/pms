@@ -1,5 +1,4 @@
 import React from "react";
-import { string } from "prop-types";
 
 const Input = ({
   type,
@@ -20,9 +19,5 @@ const Input = ({
     disabled={disabled}
   />
 );
-
-Input.defaultProps = {
-  name: "Click",
-};
 
 export default Input;
