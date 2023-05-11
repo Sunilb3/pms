@@ -4,6 +4,7 @@ import UserTable from "./view/components/Users/UserTable.js";
 import Login from "./view/components/Login/Login.js";
 
 function App() {
+  console.log("project env", process.env);
   return (
     <>
       <Router>
