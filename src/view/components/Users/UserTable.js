@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser, deleteUser, editUser } from "../../../store/userActions";
+import { addUser, deleteUser, editUser } from "../../store/userActions";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import "../Users/userTable.scss";

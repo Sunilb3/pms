@@ -3,8 +3,11 @@ import logo from "../../assets/images/logo.jpg";
 import Button from "../Button/Button";
 import "./Header.scss";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+
   return (
     <div>
       <div className="main-head">
@@ -32,8 +35,28 @@ export default function Header() {
                 <a href="#">About</a>
               </li>
               <li className="active">
-                <Link to="/login">Logout</Link>
+                <Link to="/login">Services</Link>
               </li>
+              <li className="active">
+                {isAuthenticated && <p>{user.name}</p>}
+              </li>
+              {isAuthenticated ? (
+                <li>
+                  <button
+                    onClick={() =>
+                      logout({
+                        returnTo: window.location.origin,
+                      })
+                    }
+                  >
+                    Log Out
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <button onClick={() => loginWithRedirect()}>Log In</button>;
+                </li>
+              )}
             </ul>
           </nav>
         </header>
