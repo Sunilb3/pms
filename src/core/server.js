@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
 
-const port = 3003;
+const patientsContr = require("./controllers/patientsController");
+const port = 8080;
 
-app.get("/users", (req, res) => {
-  res.json({ "users ": ["Tom", "Jack", "Mack"] });
-});
+app.get("/patients", patientsContr.getPatients);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}.`);
