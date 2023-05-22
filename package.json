@@ -1,57 +1,58 @@
 {
-    "name": "pms-app",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@auth0/auth0-react": "^2.0.2",
-        "@testing-library/react": "^13.4.0",
-        "@testing-library/user-event": "^13.5.0",
-        "axios": "^1.4.0",
-        "cors": "^2.8.5",
-        "dotenv": "^16.0.3",
-        "env-cmd": "^10.1.0",
-        "express": "^4.18.2",
-        "pg": "^8.10.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-redux": "^8.0.5",
-        "react-router-dom": "^6.10.0",
-        "react-scripts": "5.0.1",
-        "redux": "^4.2.1",
-        "redux-saga": "^1.2.3",
-        "sequelize": "^6.31.1",
-        "sequelize-cli": "^6.6.0"
-    },
-    "scripts": {
-        "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-        "start:frontend": "env-cmd -f .env react-scripts start",
-        "start:backend": "nodemon src/core/server.js",
-        "build": "env-cmd -f .env react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@testing-library/jest-dom": "^5.16.5",
-        "concurrently": "^8.0.1",
-        "node-sass": "^7.0.3",
-        "nodemon": "^2.0.22"
-    }
+  "name": "pms-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@auth0/auth0-react": "^2.0.2",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "env-cmd": "^10.1.0",
+    "express": "^4.18.2",
+    "pg": "^8.10.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.10.0",
+    "react-scripts": "5.0.1",
+    "react-icons": "^4.8.0",
+    "redux": "^4.2.1",
+    "redux-saga": "^1.2.3",
+    "sequelize": "^6.31.1",
+    "sequelize-cli": "^6.6.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "env-cmd -f .env react-scripts start",
+    "start:backend": "nodemon src/core/server.js",
+    "build": "env-cmd -f .env react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "concurrently": "^8.0.1",
+    "node-sass": "^7.0.3",
+    "nodemon": "^2.0.22"
+  }
 }

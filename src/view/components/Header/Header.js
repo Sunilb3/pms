@@ -54,7 +54,7 @@ export default function Header() {
                 </li>
               ) : (
                 <li>
-                  <button onClick={() => loginWithRedirect()}>Log In</button>;
+                  <button onClick={() => loginWithRedirect()}>Log In</button>
                 </li>
               )}
             </ul>
