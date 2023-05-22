@@ -6,7 +6,7 @@ import Input from "../Input/Input";
 import "../Users/userTable.scss";
 
 const UserTable = () => {
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
 
   const [showForm, setShowForm] = useState(false);
