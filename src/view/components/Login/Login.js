@@ -4,7 +4,7 @@ import "./Login.scss";
 export default function Login() {
   return (
     <div className="login-container">
-      <div id="background-image"></div>
+      <div className="background-image"></div>
 
       <div className="form-container">
         <div className="heading">
