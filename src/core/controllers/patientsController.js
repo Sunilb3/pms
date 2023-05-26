@@ -13,7 +13,7 @@ var getPatients = async (req, res) => {
 //Get patient by id
 var getPatientsbyid = async (req, res) => {
   try {
-    const patientId = req.query.id;
+    const patientId = req.query.patientId; // Updated to retrieve patientId from query parameters
 
     if (!patientId) {
       return res.status(400).json({ error: "Patient ID is required" });
@@ -112,10 +112,54 @@ const updatePatient = async (req, res) => {
   }
 };
 
+//update patient using patch
+const patchPatient = async (req, res) => {
+  try {
+    const { patientId } = req.query;
+    const {
+      hospitalId,
+      fullName,
+      age,
+      dateOfBirth,
+      email,
+      contactNumber,
+      nationality,
+    } = req.body;
+
+    if (!patientId) {
+      return res.status(400).json({ error: "Patient ID is required" });
+    }
+
+    const patient = await models.Patients.findByPk(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: "Patient not found" });
+    }
+
+    const updatedPatient = await patient.update({
+      hospitalId,
+      fullName,
+      age,
+      dateOfBirth,
+      email,
+      contactNumber,
+      nationality,
+    });
+
+    res.json({
+      message: "Patient updated successfully",
+      patient: updatedPatient,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update patient", error });
+  }
+};
+
 module.exports = {
   getPatients,
   getPatientsbyid,
   createPatient,
   deletePatient,
   updatePatient,
+  patchPatient,
 };
