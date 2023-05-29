@@ -1,4 +1,4 @@
-$header-color: #5f9ea0;
+$header-color: #403f79;
 
 .header {
   display: flex;
@@ -6,6 +6,9 @@ $header-color: #5f9ea0;
   justify-content: space-between;
   padding: 0.625rem;
   background-color: $header-color;
+  h1 {
+    color: #fff;
+  }
   .logo {
     height: 5rem;
     border-radius: 50%;
