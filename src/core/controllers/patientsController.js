@@ -1,7 +1,7 @@
 const models = require("../models/index");
 
 //Get all patients
-var getPatients = async (req, res) => {
+const getPatients = async (req, res) => {
   try {
     const patients = await models.Patients.findAll();
     res.json(patients);
@@ -11,7 +11,7 @@ var getPatients = async (req, res) => {
 };
 
 //Get patient by id
-var getPatientsbyid = async (req, res) => {
+const getPatientsbyid = async (req, res) => {
   try {
     const patientId = req.query.patientId; // Updated to retrieve patientId from query parameters
 
@@ -116,15 +116,6 @@ const updatePatient = async (req, res) => {
 const patchPatient = async (req, res) => {
   try {
     const { patientId } = req.query;
-    const {
-      hospitalId,
-      fullName,
-      age,
-      dateOfBirth,
-      email,
-      contactNumber,
-      nationality,
-    } = req.body;
 
     if (!patientId) {
       return res.status(400).json({ error: "Patient ID is required" });
@@ -136,15 +127,7 @@ const patchPatient = async (req, res) => {
       return res.status(404).json({ error: "Patient not found" });
     }
 
-    const updatedPatient = await patient.update({
-      hospitalId,
-      fullName,
-      age,
-      dateOfBirth,
-      email,
-      contactNumber,
-      nationality,
-    });
+    const updatedPatient = await patient.update(req.body);
 
     res.json({
       message: "Patient updated successfully",
@@ -153,6 +136,10 @@ const patchPatient = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Failed to update patient", error });
   }
+};
+
+module.exports = {
+  updatePatient,
 };
 
 module.exports = {
