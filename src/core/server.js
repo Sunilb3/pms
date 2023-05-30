@@ -11,8 +11,8 @@ app.use(express.json());
 const patientsContr = require("./controllers/patientsController");
 const port = 8080;
 
-app.get("/patients", patientsContr.getPatients);
-app.get("/patientsbyid", patientsContr.getPatientsbyid);
+app.get("/patients", patientsContr.getAllPatients);
+app.get("/patientsbyid", patientsContr.getPatientById);
 app.post("/patients", patientsContr.createPatient);
 app.delete("/patients", patientsContr.deletePatient);
 app.put("/patients/:id", patientsContr.updatePatient);

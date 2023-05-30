@@ -1,9 +1,12 @@
 const models = require("../models/index");
 
 //Get all patients
-const getPatients = async (req, res) => {
+const getAllPatients = async (req, res) => {
   try {
     const patients = await models.Patients.findAll();
+    if (!patients || patients.length === 0) {
+      return res.status(404).json({ error: "No patients found" });
+    }
     res.json(patients);
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve patients", error });
@@ -11,9 +14,9 @@ const getPatients = async (req, res) => {
 };
 
 //Get patient by id
-const getPatientsbyid = async (req, res) => {
+const getPatientById = async (req, res) => {
   try {
-    const patientId = req.query.patientId; // Updated to retrieve patientId from query parameters
+    const patientId = req.query.patientId;
 
     if (!patientId) {
       return res.status(400).json({ error: "Patient ID is required" });
@@ -34,24 +37,27 @@ const getPatientsbyid = async (req, res) => {
 //create patient
 const createPatient = async (req, res) => {
   try {
-    const {
-      hospitalId,
-      fullName,
-      age,
-      dateOfBirth,
-      email,
-      contactNumber,
-      nationality,
-    } = req.body;
-    const patient = await models.Patients.create({
-      hospitalId,
-      fullName,
-      age,
-      dateOfBirth,
-      email,
-      contactNumber,
-      nationality,
-    });
+    const requiredParameters = [
+      "hospitalId",
+      "fullName",
+      "age",
+      "dateOfBirth",
+      "email",
+      "contactNumber",
+      "nationality",
+    ];
+
+    // Check if all required parameters are present
+    const missingParameters = requiredParameters.filter(
+      (param) => !(param in req.body)
+    );
+    if (missingParameters.length > 0) {
+      return res.status(400).json({
+        error: `Missing required parameters: ${missingParameters.join(", ")}`,
+      });
+    }
+
+    const patient = await models.Patients.create(req.body);
     res.status(201).json(patient);
   } catch (error) {
     res.status(500).json({ error: "Failed to create patient", error });
@@ -62,6 +68,9 @@ const createPatient = async (req, res) => {
 const deletePatient = async (req, res) => {
   try {
     const { patientId } = req.query;
+    if (!patientId) {
+      return res.status(400).json({ error: "Patient ID is required" });
+    }
     const deletedPatient = await models.Patients.destroy({
       where: { patientId },
     });
@@ -79,6 +88,9 @@ const deletePatient = async (req, res) => {
 const updatePatient = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "Patient ID is required" });
+    }
     const {
       hospitalId,
       fullName,
@@ -143,8 +155,8 @@ module.exports = {
 };
 
 module.exports = {
-  getPatients,
-  getPatientsbyid,
+  getAllPatients,
+  getPatientById,
   createPatient,
   deletePatient,
   updatePatient,
