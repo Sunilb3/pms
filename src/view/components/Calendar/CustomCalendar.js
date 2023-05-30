@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import Button from "../Button/Button";
-import "./customCalendar.css";
+import "./customCalendar.scss";
 
 const CustomCalendar = ({ onClose }) => {
   const [date, setDate] = useState(new Date());
