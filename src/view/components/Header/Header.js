@@ -22,10 +22,7 @@ export default function Header() {
 
             <div className="search">
               <input type="text" placeholder="Search" />
-              <Button
-                name="Search"
-                className="button button--secondaryButton"
-              />
+              <Button name="Search" className="button button--primaryButton" />
             </div>
             <ul className="nav-links">
               <li className="active">
@@ -42,19 +39,23 @@ export default function Header() {
               </li>
               {isAuthenticated ? (
                 <li>
-                  <button
+                  <Button
+                    name="Log Out"
                     onClick={() =>
                       logout({
                         returnTo: window.location.origin,
                       })
                     }
-                  >
-                    Log Out
-                  </button>
+                    className="button button--primaryButton"
+                  />
                 </li>
               ) : (
                 <li>
-                  <button onClick={() => loginWithRedirect()}>Log In</button>
+                  <Button
+                    name="Log In"
+                    onClick={() => loginWithRedirect()}
+                    className="button button--primaryButton"
+                  />
                 </li>
               )}
             </ul>
