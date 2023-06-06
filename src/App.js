@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserTable from "./view/components/Users/UserTable.js";
 import Login from "./view/components/Login/Login.js";
 import "./App.scss";
-import PatientDetails from "./view/Pages/Patients/PatientDetails.js";
+import PatientDetails from "./view/Pages/Patients/view/PatientDetails.js";
 import Dashboard from "./view/Pages/Dashboard/DashBoard.js";
 
 function App() {

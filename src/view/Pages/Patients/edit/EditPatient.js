@@ -1,43 +1,19 @@
 import React, { useState } from "react";
-import { FaUserAlt, FaEdit } from "react-icons/fa";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import Button from "../../components/Button/Button";
-import "./patient-details.scss";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Button from "../../../components/Button/Button";
+import "./EditPatient.scss";
 
-const PatientDetails = () => {
-  const [showEditModal, setShowEditModal] = useState(false);
+const EditPatient = ({ patient, onCloseEditModal }) => {
   const [editedPatient, setEditedPatient] = useState({
-    fullName: "",
-    age: 0,
-    gender: "",
-    dateOfBirth: "",
-    email: "",
-    contactNumber: "",
-    nationality: "",
+    fullName: patient.fullName,
+    age: patient.age,
+    gender: patient.gender,
+    dateOfBirth: patient.dateOfBirth,
+    email: patient.email,
+    contactNumber: patient.contactNumber,
+    nationality: patient.nationality,
   });
 
-  const patients = [
-    {
-      fullName: "Tom",
-      age: 23,
-      gender: "female",
-      dateOfBirth: "1999-05-20",
-      email: "tom@example.com",
-      contactNumber: "1234567890",
-      nationality: "INDIAN",
-    },
-  ];
-
-  const openEditModal = (patient) => {
-    setEditedPatient(patient);
-    setShowEditModal(true);
-  };
-
-  const closeEditModal = () => {
-    setShowEditModal(false);
-  };
+  const [showEditModal, setShowEditModal] = useState(true);
 
   const handleInputChange = (event) => {
     const { name, value, type } = event.target;
@@ -48,81 +24,16 @@ const PatientDetails = () => {
     }));
   };
 
-  const handleUpdatePatient = () => {
-    closeEditModal();
+  const closeEditModal = () => {
+    setShowEditModal(false);
   };
 
+  const handleUpdatePatient = () => {
+    console.log(editedPatient);
+    closeEditModal();
+  };
   return (
     <>
-      <Header />
-      <Sidebar />
-
-      <div className="centered-text">
-        <h2>Patients Details</h2>
-      </div>
-      {patients.map((patient, index) => (
-        <div className="cards-container" key={index}>
-          <div className="left-card">
-            <div className="flip-container">
-              <div className="flipper">
-                <div className="front">
-                  <div className="avatar">
-                    <div
-                      className={`avatar ${
-                        patient.gender === "male"
-                          ? "male-color"
-                          : "female-color"
-                      }`}
-                    >
-                      <FaUserAlt size={200} />
-                    </div>
-                  </div>
-                </div>
-                <div className="back">
-                  <h2>{patient.fullName}</h2>
-                  <p>Email: {patient.email}</p>
-                  <p>Contact: {patient.contactNumber}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="right-card">
-            <div className="main-text-style">
-              <p>Age </p>
-              <br />
-              <p>Date Of Birth </p>
-              <br />
-              <p>Gender </p>
-              <br />
-              <p>Address </p>
-              <br />
-              <p>Nationality </p>
-              <br />
-            </div>
-
-            <div className="sub-text-style">
-              <p> {patient.age}</p>
-              <br />
-              <p>{patient.dateOfBirth}</p>
-              <br />
-              <p>{patient.gender}</p>
-              <br />
-              <p>#23 building no.9 BGL</p>
-              <br />
-              <p>{patient.nationality}</p>
-              <br />
-            </div>
-
-            <div className="edit-button">
-              <FaEdit size={20} onClick={() => openEditModal(patient)} />
-              <br />
-              Edit
-            </div>
-          </div>
-        </div>
-      ))}
-
       {showEditModal && (
         <div className="edit-modal">
           <div className="edit-modal-content">
@@ -148,7 +59,7 @@ const PatientDetails = () => {
                       onChange={handleInputChange}
                     />
                   </label>
-                  <label className="">Gender</label>
+                  <label>Gender</label>
                   <input
                     type="radio"
                     name="gender"
@@ -211,20 +122,18 @@ const PatientDetails = () => {
                   className="button button--secondaryButton"
                   onClick={handleUpdatePatient}
                 />
-
                 <Button
                   name="Cancel"
                   className="button button--secondaryButton"
-                  onClick={closeEditModal}
+                  onClick={onCloseEditModal}
                 />
               </form>
             </div>
           </div>
         </div>
       )}
-      <Footer />
     </>
   );
 };
 
-export default PatientDetails;
+export default EditPatient;

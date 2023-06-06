@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "./sidebar.scss";
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaBars } from "react-icons/fa";
 import { MdCalendarMonth } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import CustomCalendar from "../Calendar/CustomCalendar";
+import "./Sidebar.scss";
 
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -27,11 +27,9 @@ const Sidebar = () => {
       <div className="main-container">
         <div className={`sidebar ${sidebarOpen ? "" : "collapsed"}`}>
           <div className="sidebar-header">
-            <button className="sidebar-toggle" onClick={handleSidebarToggle}>
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-            </button>
+            <div className="sidebar-icon">
+              <FaBars size={22} onClick={handleSidebarToggle} />
+            </div>
           </div>
           <ul className="sidebar-menu">
             <li className={sidebarOpen ? "visible" : ""}>
