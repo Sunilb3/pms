@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserTable from "./view/components/Users/UserTable.js";
 import Login from "./view/components/Login/Login.js";
 import "./App.scss";
-import Patients from "./view/Pages/Patients/Patients.js";
+import PatientDetails from "./view/Pages/Patients/PatientDetails.js";
 import Dashboard from "./view/Pages/Dashboard/DashBoard.js";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
               }
             />
             <Route path="/login" element={<Login />} />
-            <Route path="/patients" element={<Patients />} />
+            <Route path="/patients" element={<PatientDetails />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </Router>
