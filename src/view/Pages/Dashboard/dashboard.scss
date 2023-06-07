@@ -57,6 +57,16 @@
         }
       }
     }
+    .sidebar-menu li button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      outline: none;
+    }
   }
 
   .main-content {
@@ -94,6 +104,18 @@
           .icon {
             color: white;
           }
+          .delete-icon {
+            opacity: 1;
+          }
+        }
+        .delete-icon {
+          position: fixed;
+          top: 0.5rem;
+          right: 0.5rem;
+          color: #ccc;
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.3s;
         }
 
         .card-info {

@@ -2,6 +2,8 @@ import {
   FETCH_PATIENTS_REQUEST,
   FETCH_PATIENTS_SUCCESS,
   FETCH_PATIENTS_FAILURE,
+  CREATE_PATIENT_REQUEST,
+  DELETE_PATIENT_REQUEST,
 } from "../constants/constants";
 
 const initialState = {
@@ -24,6 +26,19 @@ const patientReducer = (state = initialState, action) => {
         ...state,
         patients: [],
       };
+    case CREATE_PATIENT_REQUEST:
+      return {
+        ...state,
+        patients: [...state.patients, action.payload],
+      };
+    case DELETE_PATIENT_REQUEST:
+      return {
+        ...state,
+        patients: state.patients.filter(
+          (patient) => patient.id !== action.payload
+        ),
+      };
+
     default:
       return state;
   }

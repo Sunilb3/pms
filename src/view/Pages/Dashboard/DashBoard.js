@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.scss";
 import { FaUsers } from "react-icons/fa";
 import { MdCalendarMonth } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
-import { AiOutlineUserAdd } from "react-icons/ai";
-import { MdFace3, MdFace6 } from "react-icons/md";
+import { AiOutlineUserAdd, AiFillDelete } from "react-icons/ai";
+
+import { MdFace6 } from "react-icons/md";
 import CustomCalendar from "../../components/Calendar/CustomCalendar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchPatientsRequest,
+  createPatientRequest,
+  deletePatientRequest,
+} from "../../store/patientActions";
+import AddPatientForm from "./AddPatientForm";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showPatientButtons, setShowPatientButtons] = useState(false);
+  const [isAddPatient, setIsAddPatient] = useState(false);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -25,81 +35,54 @@ const Dashboard = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const patients = [
-    {
-      name: "Tom Dsoza",
-      age: 25,
-      email: "tom@gmail.com",
-      contact: "7564367456",
-      emergancyContact: "6354726457",
-      isActive: true,
-      gender: "male",
-    },
-    {
-      name: "Jack Maa",
-      age: 28,
-      email: "jack@gmail.com",
-      contact: "7564367456",
-      emergancyContact: "5637243554",
-      isActive: false,
-      gender: "male",
-    },
-    {
-      name: "Mick Howell",
-      age: 26,
-      email: "mick@gmail.com",
-      emergancyContact: "563546375",
-      contact: "7564367456",
-      isActive: true,
-      gender: "female",
-    },
-    {
-      name: "Ervin Howell",
-      age: 30,
-      email: "sady@gmail.com",
-      contact: "7564367456",
-      emergancyContact: "57565354",
-      isActive: false,
-      gender: "female",
-    },
-    {
-      name: "Jerry Tom",
-      age: 28,
-      email: "jerry@gmail.com",
-      contact: "7564367456",
-      emergancyContact: "6574645344",
-      isActive: true,
-      gender: "male",
-    },
-    {
-      name: "Adrew Dietrich",
-      age: 30,
-      contact: "7564367456",
-      emergancyContact: "7452536353",
-      email: "adrew@gmail.com",
-      isActive: true,
-      gender: "female",
-    },
-    {
-      name: "George Fernadies",
-      age: 20,
-      email: "george@gmail.com",
-      contact: "7564367456",
-      emergancyContact: "565464537",
-      isActive: true,
-      gender: "female",
-    },
-    {
-      name: "George Fernadies",
-      age: 34,
-      email: "george@gmail.com",
-      contact: "7564367456",
-      emergancyContact: "5463543643",
-      isActive: true,
-      gender: "male",
-    },
-  ];
+  const handlePatientsClick = () => {
+    setShowPatientButtons(!showPatientButtons);
+  };
 
+  const patients = useSelector((state) => state.patients.patients);
+  const dispatch = useDispatch();
+  console.log(patients);
+
+  const fetchPatients = () => dispatch(fetchPatientsRequest());
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  const handleSubmitAddPatient = (formData) => {
+    dispatch(createPatientRequest(formData));
+    setFormData({
+      fullName: "",
+      age: "",
+      email: "",
+      contactNumber: "",
+      nationality: "",
+      hospitalId: "",
+      dateOfBirth: "",
+    });
+    setIsAddPatient(false);
+  };
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    age: "",
+    email: "",
+    contactNumber: "",
+    nationality: "",
+    hospitalId: "",
+    dateOfBirth: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDeletePatient = (patientId) => {
+    dispatch(deletePatientRequest(patientId));
+    console.log(patientId);
+  };
   return (
     <>
       <Header />
@@ -117,9 +100,19 @@ const Dashboard = () => {
               <MdCalendarMonth size={30} onClick={handleModalOpen} />
               <p>Calendar</p>
             </li>
-            <li className={sidebarOpen ? "visible" : ""}>
+            <li
+              className={sidebarOpen ? "visible" : ""}
+              onClick={handlePatientsClick}
+            >
               <AiOutlineUserAdd size={30} />
               <p>Patients</p>
+              {showPatientButtons && (
+                <div className="patient-buttons">
+                  <button onClick={() => setIsAddPatient(true)}>
+                    (+) add patient
+                  </button>
+                </div>
+              )}
             </li>
             <li className={sidebarOpen ? "visible" : ""}>
               <FaUsers size={30} />
@@ -133,34 +126,45 @@ const Dashboard = () => {
         </div>
         <div className="main-content">
           <div className="main-cards">
-            {patients.map((patient, index) => (
-              <div className="sub-card" key={index}>
-                {patient.gender === "male" ? (
+            {Array.isArray(patients) && patients.length > 0 ? (
+              patients.map((patient) => (
+                <div
+                  className="sub-card"
+                  key={patient.id}
+                  id={`patient-${patient.id}`}
+                >
                   <MdFace6 size={45} className="icon" />
-                ) : (
-                  <MdFace3 size={45} className="icon" />
-                )}
-                <p
-                  className={`${
-                    patient.isActive ? "active-dot" : "inactive-dot"
-                  }`}
-                ></p>
-                <h3>{patient.name}</h3>
-
-                <div className="card-info">
-                  <div className="left-info">
-                    <p>Age: {patient.age}</p>
-                    <p>Email: {patient.email}</p>
+                  <h3>{patient.fullName}</h3>
+                  <div className="delete-icon">
+                    <AiFillDelete
+                      size={20}
+                      onClick={() => handleDeletePatient(patient.patientId)}
+                    />
                   </div>
-                  <div className="right-info">
-                    <p>Contact: {patient.contact}</p>
-                    <p>Emergency: {patient.emergancyContact}</p>
+                  <div className="card-info">
+                    <div className="left-info">
+                      <p>Age: {patient.age}</p>
+                      <p>Email: {patient.email}</p>
+                    </div>
+                    <div className="right-info">
+                      <p>Contact: {patient.contactNumber}</p>
+                      <p>Nationality: {patient.nationality}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No patients found.</p>
+            )}
           </div>
         </div>
+        {isAddPatient && (
+          <AddPatientForm
+            onSubmit={handleSubmitAddPatient}
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
+        )}
         {isModalOpen && <CustomCalendar onClose={handleModalClose} />}
       </div>
       <Footer />
