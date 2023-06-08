@@ -22,12 +22,10 @@ const PatientDetails = () => {
   ];
 
   const openEditModal = () => {
-    console.log("open modal");
     setShowEditModal(true);
   };
 
   const closeEditModal = () => {
-    console.log("close modal");
     setShowEditModal(false);
   };
 

@@ -29,7 +29,6 @@ const EditPatient = ({ patient, onCloseEditModal }) => {
   };
 
   const handleUpdatePatient = () => {
-    console.log(editedPatient);
     closeEditModal();
   };
   return (
