@@ -1,30 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./dashboard.scss";
-import { FaUsers } from "react-icons/fa";
-import { MdCalendarMonth } from "react-icons/md";
-import { FiLogOut } from "react-icons/fi";
-import { AiOutlineUserAdd } from "react-icons/ai";
 import { MdFace3, MdFace6 } from "react-icons/md";
-import CustomCalendar from "../../components/Calendar/CustomCalendar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const Dashboard = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleSidebarToggle = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
   const patients = [
     {
       name: "Tom Dsoza",
@@ -103,34 +84,8 @@ const Dashboard = () => {
   return (
     <>
       <Header />
+      <Sidebar />
       <div className="main">
-        <div className={`sidebar ${sidebarOpen ? "" : "collapsed"}`}>
-          <div className="sidebar-header">
-            <button className="sidebar-toggle" onClick={handleSidebarToggle}>
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-            </button>
-          </div>
-          <ul className="sidebar-menu">
-            <li className={sidebarOpen ? "visible" : ""}>
-              <MdCalendarMonth size={30} onClick={handleModalOpen} />
-              <p>Calendar</p>
-            </li>
-            <li className={sidebarOpen ? "visible" : ""}>
-              <AiOutlineUserAdd size={30} />
-              <p>Patients</p>
-            </li>
-            <li className={sidebarOpen ? "visible" : ""}>
-              <FaUsers size={30} />
-              <p>My Peers</p>
-            </li>
-            <li className={sidebarOpen ? "visible" : ""}>
-              <FiLogOut size={30} />
-              <p>Log-out</p>
-            </li>
-          </ul>
-        </div>
         <div className="main-content">
           <div className="main-cards">
             {patients.map((patient, index) => (
@@ -161,7 +116,6 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-        {isModalOpen && <CustomCalendar onClose={handleModalClose} />}
       </div>
       <Footer />
     </>
