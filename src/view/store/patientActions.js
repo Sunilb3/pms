@@ -3,7 +3,11 @@ import {
   FETCH_PATIENTS_SUCCESS,
   FETCH_PATIENTS_FAILURE,
   CREATE_PATIENT_REQUEST,
+  CREATE_PATIENT_FAILURE,
+  CREATE_PATIENT_SUCCESS,
   DELETE_PATIENT_REQUEST,
+  DELETE_PATIENT_SUCCESS,
+  DELETE_PATIENT_FAILURE,
 } from "../constants/constants";
 
 export const fetchPatientsRequest = () => ({
@@ -20,12 +24,31 @@ export const fetchPatientsFailure = (error) => ({
   payload: error,
 });
 
-export const createPatientRequest = (patients) => ({
+export const createPatientsRequest = (patientsData) => ({
   type: CREATE_PATIENT_REQUEST,
-  payload: patients,
+  payload: patientsData,
 });
 
-export const deletePatientRequest = (patientId) => ({
+export const createPatientsSuccess = (patients) => ({
+  type: CREATE_PATIENT_SUCCESS,
+  payload: patients,
+});
+export const createPatientsFailure = (error) => ({
+  type: CREATE_PATIENT_FAILURE,
+  payload: error,
+});
+
+export const deletePatientsRequest = (patientId) => ({
   type: DELETE_PATIENT_REQUEST,
   payload: patientId,
+});
+
+export const deletePatientsSuccess = (patientId) => ({
+  type: DELETE_PATIENT_SUCCESS,
+  payload: patientId,
+});
+
+export const deletePatientsFailure = (error) => ({
+  type: DELETE_PATIENT_FAILURE,
+  payload: error,
 });

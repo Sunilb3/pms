@@ -3,11 +3,14 @@ import {
   FETCH_PATIENTS_SUCCESS,
   FETCH_PATIENTS_FAILURE,
   CREATE_PATIENT_REQUEST,
+  CREATE_PATIENT_FAILURE,
   DELETE_PATIENT_REQUEST,
+  DELETE_PATIENT_FAILURE,
 } from "../constants/constants";
 
 const initialState = {
   patients: [],
+  error: null,
 };
 
 const patientReducer = (state = initialState, action) => {
@@ -25,18 +28,28 @@ const patientReducer = (state = initialState, action) => {
       return {
         ...state,
         patients: [],
+        error: action.payload,
       };
     case CREATE_PATIENT_REQUEST:
       return {
         ...state,
-        patients: [...state.patients, action.payload],
       };
+
+    case CREATE_PATIENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
     case DELETE_PATIENT_REQUEST:
       return {
         ...state,
-        patients: state.patients.filter(
-          (patient) => patient.id !== action.payload
-        ),
+      };
+
+    case DELETE_PATIENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     default:

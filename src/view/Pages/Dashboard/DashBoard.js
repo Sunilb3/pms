@@ -1,131 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "./dashboard.scss";
-import { FaUsers } from "react-icons/fa";
-import { MdCalendarMonth } from "react-icons/md";
-import { FiLogOut } from "react-icons/fi";
-import { AiOutlineUserAdd, AiFillDelete } from "react-icons/ai";
-
+import { AiFillDelete } from "react-icons/ai";
 import { MdFace6 } from "react-icons/md";
-import CustomCalendar from "../../components/Calendar/CustomCalendar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchPatientsRequest,
-  createPatientRequest,
-  deletePatientRequest,
+  deletePatientsRequest,
 } from "../../store/patientActions";
-import AddPatientForm from "./AddPatientForm";
+
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const Dashboard = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showPatientButtons, setShowPatientButtons] = useState(false);
-  const [isAddPatient, setIsAddPatient] = useState(false);
-
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleSidebarToggle = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const handlePatientsClick = () => {
-    setShowPatientButtons(!showPatientButtons);
-  };
-
   const patients = useSelector((state) => state.patients.patients);
   const dispatch = useDispatch();
-  console.log(patients);
+  const error = useSelector((state) => state.patients.error);
 
   const fetchPatients = () => dispatch(fetchPatientsRequest());
   useEffect(() => {
     fetchPatients();
   }, []);
 
-  const handleSubmitAddPatient = (formData) => {
-    dispatch(createPatientRequest(formData));
-    setFormData({
-      fullName: "",
-      age: "",
-      email: "",
-      contactNumber: "",
-      nationality: "",
-      hospitalId: "",
-      dateOfBirth: "",
-    });
-    setIsAddPatient(false);
-  };
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    age: "",
-    email: "",
-    contactNumber: "",
-    nationality: "",
-    hospitalId: "",
-    dateOfBirth: "",
-  });
-
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleDeletePatient = (patientId) => {
-    dispatch(deletePatientRequest(patientId));
-    console.log(patientId);
+    dispatch(deletePatientsRequest(patientId));
   };
   return (
     <>
       <Header />
+      <Sidebar />
       <div className="main">
-        <div className={`sidebar ${sidebarOpen ? "" : "collapsed"}`}>
-          <div className="sidebar-header">
-            <button className="sidebar-toggle" onClick={handleSidebarToggle}>
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-            </button>
-          </div>
-          <ul className="sidebar-menu">
-            <li className={sidebarOpen ? "visible" : ""}>
-              <MdCalendarMonth size={30} onClick={handleModalOpen} />
-              <p>Calendar</p>
-            </li>
-            <li
-              className={sidebarOpen ? "visible" : ""}
-              onClick={handlePatientsClick}
-            >
-              <AiOutlineUserAdd size={30} />
-              <p>Patients</p>
-              {showPatientButtons && (
-                <div className="patient-buttons">
-                  <button onClick={() => setIsAddPatient(true)}>
-                    (+) add patient
-                  </button>
-                </div>
-              )}
-            </li>
-            <li className={sidebarOpen ? "visible" : ""}>
-              <FaUsers size={30} />
-              <p>My Peers</p>
-            </li>
-            <li className={sidebarOpen ? "visible" : ""}>
-              <FiLogOut size={30} />
-              <p>Log-out</p>
-            </li>
-          </ul>
-        </div>
         <div className="main-content">
           <div className="main-cards">
+            {error && <p>Error :{error}</p>}
             {Array.isArray(patients) && patients.length > 0 ? (
               patients.map((patient) => (
                 <div
@@ -158,14 +65,6 @@ const Dashboard = () => {
             )}
           </div>
         </div>
-        {isAddPatient && (
-          <AddPatientForm
-            onSubmit={handleSubmitAddPatient}
-            formData={formData}
-            handleInputChange={handleInputChange}
-          />
-        )}
-        {isModalOpen && <CustomCalendar onClose={handleModalClose} />}
       </div>
       <Footer />
     </>
