@@ -151,10 +151,6 @@ const patchPatient = async (req, res) => {
 };
 
 module.exports = {
-  updatePatient,
-};
-
-module.exports = {
   getAllPatients,
   getPatientById,
   createPatient,

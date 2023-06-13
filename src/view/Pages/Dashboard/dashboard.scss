@@ -1,5 +1,6 @@
 .main {
   display: flex;
+
   padding: 3.125rem;
 
   .main-content {
@@ -37,6 +38,18 @@
           .icon {
             color: white;
           }
+          .delete-icon {
+            opacity: 1;
+          }
+        }
+        .delete-icon {
+          position: fixed;
+          top: 0.5rem;
+          right: 0.5rem;
+          color: #ccc;
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.3s;
         }
 
         .card-info {
