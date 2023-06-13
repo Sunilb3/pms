@@ -8,7 +8,7 @@ import AddPatientForm from "../../Pages/Dashboard/AddPatientForm";
 import { createPatientsRequest } from "../../store/patientActions";
 import { useDispatch } from "react-redux";
 
-import "./Sidebar.scss";
+import "./sidebar.scss";
 
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
