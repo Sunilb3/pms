@@ -5,12 +5,9 @@ import { MdFace6 } from "react-icons/md";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchPatientsRequest,
-  deletePatientsRequest,
-} from "../../store/patientActions";
-
+import { fetchPatientsRequest } from "../../store/patientActions";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 const Dashboard = () => {
   const patients = useSelector((state) => state.patients.patients);
@@ -22,9 +19,19 @@ const Dashboard = () => {
     fetchPatients();
   }, []);
 
-  const handleDeletePatient = (patientId) => {
-    dispatch(deletePatientsRequest(patientId));
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
+
+  const openDeleteModal = (patientId) => {
+    setSelectedPatientId(patientId);
+    setShowDeleteModal(true);
   };
+
+  const closeDeleteModal = () => {
+    setSelectedPatientId(null);
+    setShowDeleteModal(false);
+  };
+
   return (
     <>
       <Header />
@@ -45,7 +52,7 @@ const Dashboard = () => {
                   <div className="delete-icon">
                     <AiFillDelete
                       size={20}
-                      onClick={() => handleDeletePatient(patient.patientId)}
+                      onClick={() => openDeleteModal(patient.patientId)}
                     />
                   </div>
                   <div className="card-info">
@@ -66,6 +73,12 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      {showDeleteModal && (
+        <DeleteModal
+          patientId={selectedPatientId}
+          onCloseDeleteModal={closeDeleteModal}
+        />
+      )}
       <Footer />
     </>
   );
