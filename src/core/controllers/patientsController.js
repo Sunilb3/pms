@@ -1,4 +1,5 @@
 const models = require("../models/index");
+const jwt = require("jsonwebtoken");
 
 //Get all patients
 const getAllPatients = async (req, res) => {
@@ -7,7 +8,17 @@ const getAllPatients = async (req, res) => {
     if (!patients || patients.length === 0) {
       return res.status(404).json({ error: "No patients found" });
     }
-    res.json(patients);
+    const accessToken = jwt.sign(
+      { patientId: patients.patientId },
+      "mysecretkey",
+      { expiresIn: "30m" }
+    );
+    const refreshToken = jwt.sign(
+      { patientId: patients.patientId },
+      "refreshsecretkey",
+      { expiresIn: "2h" }
+    );
+    res.json({ patients, accessToken, refreshToken });
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve patients", error });
   }
@@ -56,9 +67,8 @@ const createPatient = async (req, res) => {
         error: `Missing required parameters: ${missingParameters.join(", ")}`,
       });
     }
-
     const patient = await models.Patients.create(req.body);
-    res.status(201).json(patient);
+    res.status(201).json({ patient });
   } catch (error) {
     res.status(500).json({ error: "Failed to create patient", error });
   }
@@ -150,6 +160,28 @@ const patchPatient = async (req, res) => {
   }
 };
 
+//refresh token generator
+const refreshToken = async (req, res) => {
+  const { refreshToken } = req.body;
+
+  if (!refreshToken) {
+    return res.status(400).json({ error: "Refresh token is required" });
+  }
+
+  jwt.verify(refreshToken, "refreshsecretkey", (error, patient) => {
+    if (error) {
+      return res.status(403).json({ error: "Invalid refresh token" });
+    }
+    const newAccessToken = jwt.sign(
+      { patientId: patient.patientId },
+      "mysecretkey",
+      { expiresIn: "2h" }
+    );
+
+    res.json({ accessToken: newAccessToken });
+  });
+};
+
 module.exports = {
   getAllPatients,
   getPatientById,
@@ -157,4 +189,5 @@ module.exports = {
   deletePatient,
   updatePatient,
   patchPatient,
+  refreshToken,
 };
