@@ -6,10 +6,14 @@ import {
   CREATE_PATIENT_FAILURE,
   DELETE_PATIENT_REQUEST,
   DELETE_PATIENT_FAILURE,
+  FETCH_PATIENT_BY_ID_REQUEST,
+  FETCH_PATIENT_BY_ID_FAILURE,
+  FETCH_PATIENT_BY_ID_SUCCESS,
 } from "../constants/constants";
 
 const initialState = {
   patients: [],
+  patient: [],
   error: null,
 };
 
@@ -47,6 +51,21 @@ const patientReducer = (state = initialState, action) => {
       };
 
     case DELETE_PATIENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    case FETCH_PATIENT_BY_ID_REQUEST:
+      return {
+        ...state,
+      };
+    case FETCH_PATIENT_BY_ID_SUCCESS:
+      return {
+        ...state,
+        patient: action.payload,
+      };
+    case FETCH_PATIENT_BY_ID_FAILURE:
       return {
         ...state,
         error: action.payload,
