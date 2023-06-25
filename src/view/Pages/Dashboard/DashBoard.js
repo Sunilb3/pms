@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./dashboard.scss";
 import { AiFillDelete } from "react-icons/ai";
-import { MdFace6 } from "react-icons/md";
+import { FaFemale, FaMale } from "react-icons/fa";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +54,11 @@ const Dashboard = () => {
                   id={`patient-${patient.patientId}`}
                   onClick={() => openPatientDetails(patient.patientId)}
                 >
-                  <MdFace6 size={45} className="icon" />
+                  {patient.gender === "FEMALE" ? (
+                    <FaFemale size={45} className="icon" />
+                  ) : (
+                    <FaMale size={45} className="icon" />
+                  )}
                   <h3>{patient.fullName}</h3>
                   <div className="delete-icon">
                     <AiFillDelete

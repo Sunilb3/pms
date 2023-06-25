@@ -46,7 +46,7 @@ const PatientDetails = () => {
                   <div className="avatar">
                     <div
                       className={`avatar ${
-                        "patient.gender" === "male"
+                        patient.gender === "MALE"
                           ? "male-color"
                           : "female-color"
                       }`}
@@ -67,18 +67,18 @@ const PatientDetails = () => {
           <div className="right-card">
             <div className="right-card-container">
               <div className="right-card-heading">
-                {/* <p>Gender </p> */}
                 <p>Address </p>
                 <p>Contact</p>
                 <p>Email</p>
+                <p>Gender </p>
                 <p>Nationality </p>
               </div>
 
               <div className="rigt-card-sub">
                 <p>{patient.contactNumber} </p>
                 <p>{patient.email}</p>
-                {/* <p>{patient.gender}</p> */}
                 <p>#23 building no.9 BGL</p>
+                <p>{patient.gender}</p>
                 <p>{patient.nationality}</p>
               </div>
             </div>
