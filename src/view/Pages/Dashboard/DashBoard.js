@@ -5,6 +5,7 @@ import { MdFace6 } from "react-icons/md";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { fetchPatientsRequest } from "../../store/patientActions";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import DeleteModal from "../DeleteModal/DeleteModal";
@@ -13,6 +14,7 @@ const Dashboard = () => {
   const patients = useSelector((state) => state.patients.patients);
   const dispatch = useDispatch();
   const error = useSelector((state) => state.patients.error);
+  const navigate = useNavigate();
 
   const fetchPatients = () => dispatch(fetchPatientsRequest());
   useEffect(() => {
@@ -32,6 +34,10 @@ const Dashboard = () => {
     setShowDeleteModal(false);
   };
 
+  const openPatientDetails = (patientId) => {
+    navigate(`/patients/${patientId}`);
+  };
+
   return (
     <>
       <Header />
@@ -44,15 +50,19 @@ const Dashboard = () => {
               patients.map((patient) => (
                 <div
                   className="sub-card"
-                  key={patient.id}
-                  id={`patient-${patient.id}`}
+                  key={patient.patientId}
+                  id={`patient-${patient.patientId}`}
+                  onClick={() => openPatientDetails(patient.patientId)}
                 >
                   <MdFace6 size={45} className="icon" />
                   <h3>{patient.fullName}</h3>
                   <div className="delete-icon">
                     <AiFillDelete
                       size={20}
-                      onClick={() => openDeleteModal(patient.patientId)}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        openDeleteModal(patient.patientId);
+                      }}
                     />
                   </div>
                   <div className="card-info">
