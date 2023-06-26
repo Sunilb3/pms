@@ -6,6 +6,9 @@ import {
   CREATE_PATIENT_FAILURE,
   DELETE_PATIENT_REQUEST,
   DELETE_PATIENT_FAILURE,
+  UPDATE_PATIENT_REQUEST,
+  UPDATE_PATIENT_FAILURE,
+  UPDATE_PATIENT_SUCCESS,
 } from "../constants/constants";
 
 const initialState = {
@@ -47,6 +50,17 @@ const patientReducer = (state = initialState, action) => {
       };
 
     case DELETE_PATIENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    case UPDATE_PATIENT_REQUEST:
+      return {
+        ...state,
+      };
+
+    case UPDATE_PATIENT_FAILURE:
       return {
         ...state,
         error: action.payload,
