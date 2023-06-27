@@ -26,6 +26,14 @@
         flex-direction: column;
         align-items: center;
 
+        .male-icon {
+          color: #36aade;
+        }
+
+        .female-icon {
+          color: #e5017e;
+        }
+
         &:hover {
           transform: scale(1.05);
           background-color: #0f325b;
@@ -36,7 +44,8 @@
           h3 {
             color: #fff;
           }
-          .icon {
+          .male-icon,
+          .female-icon {
             color: white;
           }
           .delete-icon {

@@ -55,9 +55,9 @@ const Dashboard = () => {
                   onClick={() => openPatientDetails(patient.patientId)}
                 >
                   {patient.gender === "FEMALE" ? (
-                    <FaFemale size={45} className="icon" />
+                    <FaFemale size={45} className="female-icon" />
                   ) : (
-                    <FaMale size={45} className="icon" />
+                    <FaMale size={45} className="male-icon" />
                   )}
                   <h3>{patient.fullName}</h3>
                   <div className="delete-icon">
