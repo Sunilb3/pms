@@ -3,6 +3,7 @@ import { fetchPatients } from "./fetchPatientsSaga/fetchPatientsSaga";
 import { createPatients } from "./createPatientsSaga/createPatientsSaga";
 import { deletePatient } from "./deletePatientsSaga/deletePatientsSaga";
 import { updatePatient } from "./updatePatientsSaga/updatePatientsSaga";
+import { fetchPatientById } from "./fetchPatientByIdSaga/fetchPatientByIdSaga";
 
 function* rootSaga() {
   yield all([
@@ -10,6 +11,7 @@ function* rootSaga() {
     createPatients(),
     deletePatient(),
     updatePatient(),
+    fetchPatientById(),
   ]);
 }
 

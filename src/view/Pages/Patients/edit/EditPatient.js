@@ -31,7 +31,7 @@ const EditPatient = ({ patient, onCloseEditModal }) => {
   };
 
   const handleUpdatePatient = () => {
-    dispatch(updatePatientsRequest(64, editedPatient));
+    dispatch(updatePatientsRequest(patient.patientId, editedPatient));
 
     closeEditModal();
   };

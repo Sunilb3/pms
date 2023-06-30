@@ -11,6 +11,9 @@ import {
   UPDATE_PATIENT_REQUEST,
   UPDATE_PATIENT_FAILURE,
   UPDATE_PATIENT_SUCCESS,
+  FETCH_PATIENT_BY_ID_REQUEST,
+  FETCH_PATIENT_BY_ID_SUCCESS,
+  FETCH_PATIENT_BY_ID_FAILURE,
 } from "../constants/constants";
 
 export const fetchPatientsRequest = () => ({
@@ -71,5 +74,19 @@ export const updatePatientsSuccess = (patientId) => ({
 
 export const updatePatientsFailure = (error) => ({
   type: UPDATE_PATIENT_FAILURE,
+  payload: error,
+});
+export const fetchPatientByIdRequest = (patientId) => ({
+  type: FETCH_PATIENT_BY_ID_REQUEST,
+  payload: patientId,
+});
+
+export const fetchPatientByIdSuccess = (patient) => ({
+  type: FETCH_PATIENT_BY_ID_SUCCESS,
+  payload: patient,
+});
+
+export const fetchPatientByIdFailure = (error) => ({
+  type: FETCH_PATIENT_BY_ID_FAILURE,
   payload: error,
 });
