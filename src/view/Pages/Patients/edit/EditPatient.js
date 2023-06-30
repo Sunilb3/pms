@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Button from "../../../components/Button/Button";
 import "./EditPatient.scss";
+import { useDispatch } from "react-redux";
+import { updatePatientsRequest } from "../../../store/patientActions";
 
 const EditPatient = ({ patient, onCloseEditModal }) => {
   const [editedPatient, setEditedPatient] = useState({
+    hospitalId: patient.hospitalId,
     fullName: patient.fullName,
     age: patient.age,
-    gender: patient.gender,
     dateOfBirth: patient.dateOfBirth,
     email: patient.email,
     contactNumber: patient.contactNumber,
@@ -14,7 +16,7 @@ const EditPatient = ({ patient, onCloseEditModal }) => {
   });
 
   const [showEditModal, setShowEditModal] = useState(true);
-
+  const dispatch = useDispatch();
   const handleInputChange = (event) => {
     const { name, value, type } = event.target;
     const newValue = type === "radio" ? value : value.trim();
@@ -29,6 +31,8 @@ const EditPatient = ({ patient, onCloseEditModal }) => {
   };
 
   const handleUpdatePatient = () => {
+    dispatch(updatePatientsRequest(patient.patientId, editedPatient));
+
     closeEditModal();
   };
   return (
@@ -58,31 +62,22 @@ const EditPatient = ({ patient, onCloseEditModal }) => {
                       onChange={handleInputChange}
                     />
                   </label>
-                  <label>Gender</label>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    checked={editedPatient.gender === "male"}
-                    onChange={handleInputChange}
-                  />
-                  <br />
-                  Male
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="female"
-                    checked={editedPatient.gender === "female"}
-                    onChange={handleInputChange}
-                  />
-                  <br />
-                  Female
+
                   <label>
                     Date of Birth
                     <input
                       type="date"
                       name="dateOfBirth"
                       value={editedPatient.dateOfBirth}
+                      onChange={handleInputChange}
+                    />
+                  </label>
+                  <label>
+                    HospitalId
+                    <input
+                      type="number"
+                      name="HospitalId"
+                      value={editedPatient.hospitalId}
                       onChange={handleInputChange}
                     />
                   </label>

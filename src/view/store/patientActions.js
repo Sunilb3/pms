@@ -8,6 +8,9 @@ import {
   DELETE_PATIENT_REQUEST,
   DELETE_PATIENT_SUCCESS,
   DELETE_PATIENT_FAILURE,
+  UPDATE_PATIENT_REQUEST,
+  UPDATE_PATIENT_FAILURE,
+  UPDATE_PATIENT_SUCCESS,
   FETCH_PATIENT_BY_ID_REQUEST,
   FETCH_PATIENT_BY_ID_SUCCESS,
   FETCH_PATIENT_BY_ID_FAILURE,
@@ -56,6 +59,23 @@ export const deletePatientsFailure = (error) => ({
   payload: error,
 });
 
+export const updatePatientsRequest = (patientId, patientData) => ({
+  type: UPDATE_PATIENT_REQUEST,
+  payload: {
+    patientId,
+    patientData,
+  },
+});
+
+export const updatePatientsSuccess = (patientId) => ({
+  type: UPDATE_PATIENT_SUCCESS,
+  payload: patientId,
+});
+
+export const updatePatientsFailure = (error) => ({
+  type: UPDATE_PATIENT_FAILURE,
+  payload: error,
+});
 export const fetchPatientByIdRequest = (patientId) => ({
   type: FETCH_PATIENT_BY_ID_REQUEST,
   payload: patientId,
