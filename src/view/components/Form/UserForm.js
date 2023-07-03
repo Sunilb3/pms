@@ -6,6 +6,7 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
     fullName: "",
     hospitalId: "",
     age: "",
+    gender: "",
     dateOfBirth: "",
     email: "",
     contactNumber: "",
@@ -18,6 +19,7 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
         fullName: user.fullName,
         hospitalId: user.hospitalId,
         age: user.age,
+        gender: user.gender,
         dateOfBirth: user.dateOfBirth,
         email: user.email,
         contactNumber: user.contactNumber,
@@ -77,7 +79,25 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
                   onChange={handleInputChange}
                 />
               </label>
-
+              <label>Gender</label>
+              <input
+                type="radio"
+                name="gender"
+                value="MALE"
+                checked={formData.gender === "MALE"}
+                onChange={handleInputChange}
+              />
+              <br />
+              Male
+              <input
+                type="radio"
+                name="gender"
+                value="FEMALE"
+                checked={formData.gender === "FEMALE"}
+                onChange={handleInputChange}
+              />
+              <br />
+              Female
               <label>
                 Date of Birth
                 <input
