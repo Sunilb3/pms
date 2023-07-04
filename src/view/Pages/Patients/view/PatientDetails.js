@@ -14,6 +14,7 @@ const PatientDetails = () => {
   const dispatch = useDispatch();
   const [showEditModal, setShowEditModal] = useState(false);
   const { patientId } = useParams();
+  const error = useSelector((state) => state.patients.error);
 
   const fetchPatient = () => dispatch(fetchPatientByIdRequest(patientId));
   useEffect(() => {
@@ -36,7 +37,7 @@ const PatientDetails = () => {
       <div className="centered-text">
         <h2>Patients Details</h2>
       </div>
-
+      {error && <p className="centered-text">Error :{error}</p>}
       {patient && (
         <div className="cards-container">
           <div className="left-card">

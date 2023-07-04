@@ -6,17 +6,21 @@ import {
   updatePatientsSuccess,
   fetchPatientsRequest,
 } from "../../patientActions";
+import { authorize } from "../authorizationSaga/authorizationSaga";
 
 const apiUrl = process.env.REACT_APP_API_PATH;
 
 function* updatePatientSaga(action) {
   try {
+    const accessToken = yield call(authorize);
+    const headers = { Authorization: `Bearer ${accessToken}` };
     const { patientId, patientData } = action.payload;
 
     const response = yield call(
       axios.put,
       `${apiUrl}patients/${patientId}`,
-      patientData
+      patientData,
+      { headers }
     );
     if (response.status === 200) {
       yield put(updatePatientsSuccess(patientId));

@@ -57,10 +57,10 @@ const authenticateToken = (req, res, next) => {
 };
 
 app.get("/patients", patientsContr.getAllPatients);
-app.get("/patientsbyid", patientsContr.getPatientById);
+app.get("/patientsbyid", authenticateToken, patientsContr.getPatientById);
 app.post("/patients", authenticateToken, patientsContr.createPatient);
 app.delete("/patients", authenticateToken, patientsContr.deletePatient);
-app.put("/patients/:id", patientsContr.updatePatient);
+app.put("/patients/:id", authenticateToken, patientsContr.updatePatient);
 app.patch("/patients", patientsContr.patchPatient);
 app.post("/refresh-token", patientsContr.refreshToken);
 app.listen(port, () => {
