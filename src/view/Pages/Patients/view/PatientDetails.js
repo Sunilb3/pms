@@ -1,25 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { FaUserAlt, FaEdit } from "react-icons/fa";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import "./PatientDetails.scss";
 import EditPatient from "../edit/EditPatient";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPatientByIdRequest } from "../../../store/patientActions";
 
 const PatientDetails = () => {
+  const patient = useSelector((state) => state.patients.patient);
+  const dispatch = useDispatch();
   const [showEditModal, setShowEditModal] = useState(false);
+  const { patientId } = useParams();
 
-  const patients = [
-    {
-      fullName: "Tom",
-      age: 23,
-      gender: "female",
-      dateOfBirth: "1999-05-20",
-      email: "tom@example.com",
-      contactNumber: "1234567890",
-      nationality: "INDIAN",
-    },
-  ];
+  const fetchPatient = () => dispatch(fetchPatientByIdRequest(patientId));
+  useEffect(() => {
+    fetchPatient();
+  }, []);
 
   const openEditModal = () => {
     setShowEditModal(true);
@@ -37,8 +36,9 @@ const PatientDetails = () => {
       <div className="centered-text">
         <h2>Patients Details</h2>
       </div>
-      {patients.map((patient, index) => (
-        <div className="cards-container" key={index}>
+
+      {patient && (
+        <div className="cards-container">
           <div className="left-card">
             <div className="flip-container">
               <div className="flipper">
@@ -46,7 +46,7 @@ const PatientDetails = () => {
                   <div className="avatar">
                     <div
                       className={`avatar ${
-                        patient.gender === "male"
+                        patient.gender === "MALE"
                           ? "male-color"
                           : "female-color"
                       }`}
@@ -57,8 +57,8 @@ const PatientDetails = () => {
                 </div>
                 <div className="back">
                   <h2>{patient.fullName}</h2>
-                  <p>Email: {patient.email}</p>
-                  <p>Contact: {patient.contactNumber}</p>
+                  <p>Age : {patient.age} </p>
+                  <p>Date Of Birth : {patient.dateOfBirth} </p>
                 </div>
               </div>
             </div>
@@ -67,18 +67,18 @@ const PatientDetails = () => {
           <div className="right-card">
             <div className="right-card-container">
               <div className="right-card-heading">
-                <p>Age </p>
-                <p>Date Of Birth </p>
-                <p>Gender </p>
                 <p>Address </p>
+                <p>Contact</p>
+                <p>Email</p>
+                <p>Gender </p>
                 <p>Nationality </p>
               </div>
 
               <div className="rigt-card-sub">
-                <p> {patient.age}</p>
-                <p>{patient.dateOfBirth}</p>
-                <p>{patient.gender}</p>
+                <p>{patient.contactNumber} </p>
+                <p>{patient.email}</p>
                 <p>#23 building no.9 BGL</p>
+                <p>{patient.gender}</p>
                 <p>{patient.nationality}</p>
               </div>
             </div>
@@ -89,13 +89,15 @@ const PatientDetails = () => {
               Edit
             </div>
           </div>
-          {showEditModal && (
-            <EditPatient patient={patient} onCloseEditModal={closeEditModal} />
-          )}
         </div>
-      ))}
+      )}
+
+      {!patient && <p>No patient found.</p>}
 
       <Footer />
+      {showEditModal && (
+        <EditPatient patient={patient} onCloseEditModal={closeEditModal} />
+      )}
     </>
   );
 };
