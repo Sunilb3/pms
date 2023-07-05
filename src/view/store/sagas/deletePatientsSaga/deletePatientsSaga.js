@@ -6,14 +6,18 @@ import {
   deletePatientsSuccess,
   fetchPatientsRequest,
 } from "../../patientActions";
+import { authorize } from "../authorizationSaga/authorizationSaga";
 
 const apiUrl = process.env.REACT_APP_API_PATH;
 
 function* deletePatientSaga(action) {
   try {
+    const accessToken = yield call(authorize);
+    const headers = { Authorization: `Bearer ${accessToken}` };
     const response = yield call(
       axios.delete,
-      `${apiUrl}patients?patientId=${action.payload}`
+      `${apiUrl}patients?patientId=${action.payload}`,
+      { headers }
     );
 
     if (response.status === 200) {

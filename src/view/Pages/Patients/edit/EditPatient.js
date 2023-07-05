@@ -9,6 +9,7 @@ const EditPatient = ({ patient, onCloseEditModal }) => {
 
   const dispatch = useDispatch();
   const previousPatientData = useSelector((state) => state.patients.patient);
+  const error = useSelector((state) => state.patients.error);
 
   const closeEditModal = () => {
     setShowEditModal(false);
@@ -27,6 +28,7 @@ const EditPatient = ({ patient, onCloseEditModal }) => {
 
   return (
     <>
+      {error && <p>Error :{error}</p>}
       {showEditModal && (
         <UserForm
           onSubmit={handleUpdatePatient}
