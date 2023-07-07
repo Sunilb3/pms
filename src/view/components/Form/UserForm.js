@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import "./UserForm.scss";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../../toastConfig.js";
+
 const UserForm = ({ user, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -39,6 +43,12 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
     e.preventDefault();
     onSubmit(formData);
     onCancel();
+
+    if (user) {
+      toast.success(`  patient ${user.fullName} updated successfully `);
+    } else {
+      toast.success("Patient added successfully!");
+    }
   };
 
   const handleCancel = () => {
@@ -150,6 +160,7 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

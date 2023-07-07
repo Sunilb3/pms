@@ -3,6 +3,8 @@ import "./DeleteModal.scss";
 import { useDispatch } from "react-redux";
 import { deletePatientsRequest } from "../../store/patientActions";
 import Button from "../../components/Button/Button";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DeleteModal = ({ patientId, onCloseDeleteModal }) => {
   const dispatch = useDispatch();
@@ -10,6 +12,7 @@ const DeleteModal = ({ patientId, onCloseDeleteModal }) => {
   const handleDeletePatient = () => {
     dispatch(deletePatientsRequest(patientId));
     onCloseDeleteModal();
+    toast.success("Patient deleted successfully!");
   };
 
   return (
@@ -30,6 +33,7 @@ const DeleteModal = ({ patientId, onCloseDeleteModal }) => {
           onClick={onCloseDeleteModal}
         />
       </div>
+      <ToastContainer />
     </div>
   );
 };
