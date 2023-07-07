@@ -3,9 +3,6 @@ import UserForm from "../../../components/Form/UserForm";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePatientsRequest } from "../../../store/patientActions";
 import { fetchPatientByIdSuccess } from "../../../store/patientActions";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "../../../toastConfig";
 
 const EditPatient = ({ patient, onCloseEditModal }) => {
   const [showEditModal, setShowEditModal] = useState(true);
