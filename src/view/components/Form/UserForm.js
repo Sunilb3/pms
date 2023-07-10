@@ -45,7 +45,7 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
     onCancel();
 
     if (user) {
-      toast.success(`  patient ${user.fullName} updated successfully `);
+      toast.success(`Patient ${user.fullName} updated successfully`);
     } else {
       toast.success("Patient added successfully!");
     }
