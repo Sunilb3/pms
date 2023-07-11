@@ -6,6 +6,9 @@ import Login from "./view/components/Login/Login.js";
 import "./App.scss";
 import PatientDetails from "./view/Pages/Patients/view/PatientDetails.js";
 import Dashboard from "./view/Pages/Dashboard/DashBoard.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import toastConfig from "./view/toastConfig.js";
 
 function App() {
   console.log("project env", process.env);
@@ -30,6 +33,7 @@ function App() {
           </Routes>
         </Router>
       </div>
+      <ToastContainer {...toastConfig} />
     </div>
   );
 }
