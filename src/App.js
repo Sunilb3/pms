@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 import toastConfig from "./view/toastConfig.js";
 
 function App() {
-  console.log("project env", process.env);
   return (
     <div className="app-container">
       <div className="content-wrap">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logo.jpg";
 import Button from "../Button/Button";
 import "./Header.scss";
@@ -6,7 +6,41 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const {
+    loginWithRedirect,
+    logout,
+    isAuthenticated,
+    user,
+    getAccessTokenSilently,
+  } = useAuth0();
+
+  const [isTokenRetrieved, setIsTokenRetrieved] = useState(false);
+
+  useEffect(() => {
+    const retrieveToken = async () => {
+      if (isAuthenticated && !isTokenRetrieved) {
+        setIsTokenRetrieved(true);
+        const token = await getAccessTokenSilently();
+        sessionStorage.setItem("accessToken", token);
+        sessionStorage.setItem("isAuthenticated", isAuthenticated);
+        sessionStorage.setItem("userPic", user.picture);
+      }
+    };
+    retrieveToken();
+  }, [isAuthenticated, isTokenRetrieved, getAccessTokenSilently]);
+
+  const handleLogin = async () => {
+    loginWithRedirect({
+      redirectUri: window.location.origin + "/dashboard",
+    });
+  };
+
+  const handleLogout = () => {
+    logout({
+      returnTo: window.location.origin,
+    });
+    sessionStorage.clear();
+  };
 
   return (
     <div>
@@ -34,18 +68,20 @@ export default function Header() {
               <li className="active">
                 <Link to="/login">Services</Link>
               </li>
-              <li className="active">
-                {isAuthenticated && <p>{user.name}</p>}
-              </li>
-              {isAuthenticated ? (
+              <div className="logo">
+                {user || sessionStorage.getItem("userPic") ? (
+                  <img
+                    src={sessionStorage.getItem("userPic") || user.picture}
+                    alt={"profile_pic"}
+                  />
+                ) : null}
+              </div>
+              {isAuthenticated ||
+              sessionStorage.getItem("isAuthenticated") === "true" ? (
                 <li>
                   <Button
                     name="Log Out"
-                    onClick={() =>
-                      logout({
-                        returnTo: window.location.origin,
-                      })
-                    }
+                    onClick={() => handleLogout()}
                     className="button button--primaryButton"
                   />
                 </li>
@@ -53,7 +89,7 @@ export default function Header() {
                 <li>
                   <Button
                     name="Log In"
-                    onClick={() => loginWithRedirect()}
+                    onClick={() => handleLogin()}
                     className="button button--primaryButton"
                   />
                 </li>

@@ -6,13 +6,12 @@ import {
   createPatientsFailure,
   fetchPatientsRequest,
 } from "../../patientActions";
-import { authorize } from "../authorizationSaga/authorizationSaga";
 
 const apiUrl = process.env.REACT_APP_API_PATH;
 
 function* createPatientSaga(action) {
   try {
-    const accessToken = yield call(authorize);
+    const accessToken = sessionStorage.getItem("accessToken");
     const headers = { Authorization: `Bearer ${accessToken}` };
     const response = yield call(
       axios.post,
