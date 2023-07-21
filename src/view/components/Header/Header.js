@@ -68,14 +68,14 @@ export default function Header() {
               <li className="active">
                 <Link to="/login">Services</Link>
               </li>
-              <div className="logo">
+              <li className="logo">
                 {user || sessionStorage.getItem("userPic") ? (
                   <img
                     src={sessionStorage.getItem("userPic") || user.picture}
                     alt={"profile_pic"}
                   />
                 ) : null}
-              </div>
+              </li>
               {isAuthenticated ||
               sessionStorage.getItem("isAuthenticated") === "true" ? (
                 <li>
