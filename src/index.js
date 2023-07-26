@@ -9,9 +9,13 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
-    domain="dev-zupjw54lu4ni5t2t.us.auth0.com"
-    clientId="AtQhsKDmxyzwhuejzatdfhK8EHWbknK1"
-    redirectUri={window.location.origin}
+    domain="pmsapplication.us.auth0.com"
+    clientId="d5xVsG8Hl9gpn5IYR3EULbCj1XUAJ8Bs"
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+      audience: "this is my identifier",
+    }}
+    scope="openid profile email"
   >
     <Provider store={store}>
       <React.StrictMode>
